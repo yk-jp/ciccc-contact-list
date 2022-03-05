@@ -30,6 +30,9 @@ public class Controller {
             } else if (Config.OPTIONS[optionNumber].equals(Config.OPTION_ADD_NEW_CONTACT)) {
                 contactList.addNewContact();
 
+            } else if(Config.OPTIONS[optionNumber].equals(Config.OPTION_REMOVE_CONTACT)){
+                contactList.removeContact();
+
             } else if (Config.OPTIONS[optionNumber].equals(Config.OPTION_QUIT)) {
                 this.quit();
                 break;
@@ -39,6 +42,6 @@ public class Controller {
     }
 
     private void quit() {
-        System.out.println(Config.GREETING_BYE);
+        System.out.println("Bye!");
     }
 }
