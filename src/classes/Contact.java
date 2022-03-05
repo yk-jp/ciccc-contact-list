@@ -10,12 +10,24 @@ public class Contact {
     public Contact() {
     }
 
-    public void printData(){
-        System.out.println("name: " + this.getName());
-        System.out.println("phone: " + this.getPhone());
-        System.out.println("work: " + this.getWork());
-        System.out.println("home: " + this.getHome());
-        System.out.println("city: " + this.getCity());
+    public void printData() {
+        String optionalInfo = "";
+
+        if (this.getWork() != null || this.getWork().replaceAll(" ", "") != "") {
+            optionalInfo += ", work=" + this.getWork();
+        }
+        if (this.getHome() != null || this.getHome().replaceAll(" ", "") != "") {
+            optionalInfo += ", phone=" + this.getHome();
+        }
+        if (this.getCity() != null || this.getCity().replaceAll(" ", "") != "") {
+            optionalInfo += ", city=" + this.getCity();
+        }
+
+        System.out.print("<" + this.getName() + "> ");
+        System.out.print("(");
+        System.out.print("mobile=" + this.getPhone());
+        System.out.print(optionalInfo);
+        System.out.println(")");
     }
 
     public String getName() {
