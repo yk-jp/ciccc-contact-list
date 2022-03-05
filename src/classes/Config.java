@@ -33,8 +33,8 @@ class Config {
             PROMPT_ENTER_CITY
     };
 
-    final static String ADD_CONTACT_SUCCESS = "Successfully added a new contact!";
+    //update and remove
+    final static String PROMPT_ENTER_INDEX = "Enter the index of the contact to ";
 
-    // quit
-    final static String GREETING_BYE = "Bye!";
+    final static String NOT_FOUND = "NOT FOUND";
 }

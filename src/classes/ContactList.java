@@ -2,6 +2,7 @@ package classes;
 
 import java.util.ArrayList;
 
+
 public class ContactList {
     private ArrayList<Contact> data;
 
@@ -10,15 +11,29 @@ public class ContactList {
     }
 
     public void printAllData() {
-        if(this.data.size() <= 0 ){
-            System.out.println("NOT FOUND\n");
+        if (this.data.size() <= 0) {
+            System.out.println(Config.NOT_FOUND + "\n");
         }
 
-
-        for(int i = 0; i < this.data.size(); i++){
+        for (int i = 0; i < this.data.size(); i++) {
             System.out.print(i + ". ");
             this.data.get(i).printData();
         }
+    }
+
+
+    public void removeContact() {
+        this.printAllData();
+
+        String userInput = InputCollector.getUserInput(Config.PROMPT_ENTER_INDEX + "remove");
+
+        int indexAt = Integer.parseInt(userInput);
+        // validation
+
+
+        Contact removedContact = this.remove(indexAt);
+
+        System.out.println("Successfully removed " + removedContact.getName());
     }
 
     public void addNewContact() {
@@ -55,9 +70,12 @@ public class ContactList {
         System.out.println("new contact");
         newContact.printData();
         System.out.println("");
-        System.out.println(Config.ADD_CONTACT_SUCCESS);
+        System.out.println("Successfully added a new contact!");
     }
 
+    private Contact remove(int indexAt) {
+        return this.data.remove(indexAt);
+    }
 
     private void addContact(Contact newContact) {
         this.data.add(newContact);
