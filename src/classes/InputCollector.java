@@ -10,10 +10,6 @@ public class InputCollector {
 
         String userInput = scanner.nextLine();
 
-        if(prompt.equals(Config.PROMPT_INPUT_OPTION)) {
-//            Validation.
-        }
-
         return userInput;
     }
 }

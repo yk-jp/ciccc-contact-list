@@ -16,26 +16,71 @@ public class Controller {
     public void execute() {
         ContactList contactList = new ContactList();
 
-        boolean isTerminated = false;
-
-        while (!isTerminated) {
+        while (true) {
 
             this.printMainMenu();
+
             String userInput = InputCollector.getUserInput(Config.PROMPT_INPUT_OPTION);
+            //validation for selecting option from menu
 
+            int optionNumber = Integer.parseInt(userInput) -1;
 
-            if (Config.OPTIONS[Integer.parseInt(userInput)].equals(Config.OPTION_ADD_NEW_CONTACT) {
+            if (Config.OPTIONS[optionNumber].equals(Config.OPTION_ADD_NEW_CONTACT)) {
+                this.addNewContact(contactList);
 
-            } else if (Config.OPTIONS[Integer.parseInt(userInput)].equals(Config.OPTION_QUIT)) {
-                isTerminated = this.quit();
+                contactList.getData().get(0).printData();
+            } else if (Config.OPTIONS[optionNumber].equals(Config.OPTION_QUIT)) {
+                this.quit();
+                break;
             }
 
         }
     }
 
+    /**
+     * form field:
+     * name - required
+     * mobile - required
+     * work
+     * home
+     * city
+     *
+     * @param contactList
+     */
+    private void addNewContact(ContactList contactList) {
+        Contact newContact = new Contact();
+        final String[] prompt = Config.PROMPT_CREATE_CONTACT;
 
-    private boolean quit() {
-        System.out.println("Bye!");
-        return true;
+        int i = 0;
+        while (true) {
+            String userInput = InputCollector.getUserInput(prompt[i]);
+
+            if (prompt[i].equals(Config.PROMPT_ENTER_NAME)) {
+                // validate name
+
+
+                newContact.setName(userInput);
+            } else if (prompt[i].equals(Config.PROMPT_ENTER_MOBILE)) {
+                // validate mobile
+
+                newContact.setPhone(userInput);
+            } else if (prompt[i].equals(Config.PROMPT_ENTER_WORK)) {
+                newContact.setWork(userInput);
+            } else if (prompt[i].equals(Config.PROMPT_ENTER_HOME)) {
+                newContact.setHome(userInput);
+            } else {
+                newContact.setCity(userInput);
+                break;
+            }
+
+            i++;
+        }
+
+        contactList.addContact(newContact);
+        System.out.println(Config.ADD_CONTACT_SUCCESS);
+    }
+
+    private void quit() {
+        System.out.println(Config.GREETING_BYE);
     }
 }

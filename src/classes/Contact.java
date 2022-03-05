@@ -10,6 +10,14 @@ public class Contact {
     public Contact() {
     }
 
+    public void printData(){
+        System.out.println("name: " + this.getName());
+        System.out.println("phone: " + this.getPhone());
+        System.out.println("work: " + this.getWork());
+        System.out.println("home: " + this.getHome());
+        System.out.println("city: " + this.getCity());
+    }
+
     public String getName() {
         return name;
     }

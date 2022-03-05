@@ -15,7 +15,26 @@ class Config {
             OPTION_QUIT,
     };
 
+    //menu
     final static String PROMPT_INPUT_OPTION = "Enter your option";
 
+    //list all contact
+    final static String PROMPT_ENTER_NAME = "Enter name";
+    final static String PROMPT_ENTER_MOBILE = "Enter mobile";
+    final static String PROMPT_ENTER_WORK = "Enter work";
+    final static String PROMPT_ENTER_HOME = "Enter home";
+    final static String PROMPT_ENTER_CITY = "Enter city";
+
+    final static String[] PROMPT_CREATE_CONTACT = new String[]{
+            PROMPT_ENTER_NAME,
+            PROMPT_ENTER_MOBILE,
+            PROMPT_ENTER_WORK,
+            PROMPT_ENTER_HOME,
+            PROMPT_ENTER_CITY
+    };
+
+    final static String ADD_CONTACT_SUCCESS = "Successfully added a new contact!";
+
+    // quit
     final static String GREETING_BYE = "Bye!";
 }
