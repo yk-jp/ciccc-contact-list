@@ -33,27 +33,58 @@ public class ContactList {
 
         int i = 0;
 
-
-        String userInputIndex = InputCollector.getUserInput(Config.PROMPT_ENTER_INDEX + "update").trim();
+        String userInput = null;
+        int indexAt = -1;
 
         while (true) {
-            int indexAt = Integer.parseInt(userInputIndex);
+            try {
+                userInput = InputCollector.getUserInput(Config.PROMPT_ENTER_INDEX + "update").trim();
+                indexAt = Integer.parseInt(userInput) - 1;
 
-            String userInput = InputCollector.getUserInput(prompt[i]).trim();
+                if (indexAt < 0 || indexAt > this.getData().size() - 1) {
+                    throw new IndexOutOfBoundsException();
+                }
 
+            } catch (IndexOutOfBoundsException err) {
+                System.out.println(Config.ERROR_MESSAGE_OUT_OF_BOUNDS(
+                        0, this.getData().size() - 1
+                ) + "\n");
 
-            // validation
+                continue;
+            } catch (NumberFormatException err) {
+                System.out.println(Config.ERROR_MESSAGE_FORMAT("You must enter number between "
+                        + 0 + " and " + (this.getData().size() - 1) + ".") + "\n");
+                continue;
+            }
+
+            break;
+        }
+
+        while (true) {
+            userInput = InputCollector.getUserInput(prompt[i]).trim();
 
             if (prompt[i].equals(Config.PROMPT_ENTER_NAME)) {
                 // validate name
-
+                if (this.isRequiredDataEmpty(userInput)) {
+                    System.out.println(Config.ERROR_MESSAGE_IS_REQUIRED() + "\n");
+                    continue;
+                }
 
                 this.data.get(indexAt).setName(userInput);
             } else if (prompt[i].equals(Config.PROMPT_ENTER_MOBILE)) {
                 // validate mobile
+                if (this.isRequiredDataEmpty(userInput)) {
+                    System.out.println(Config.ERROR_MESSAGE_IS_REQUIRED() + "\n");
+                    continue;
+                }
 
+                if (this.isDuplicatedEntry(this.data.get(indexAt), userInput)) {
+                    // validate duplicated entry
+                    System.out.println(Config.ERROR_MESSAGE_DUPLICATE_ENTRY("You must enter different info. "
+                            + "Try again.") + "\n");
+                    continue;
+                }
                 this.data.get(indexAt).setPhone(userInput);
-
 
             } else if (prompt[i].equals(Config.PROMPT_ENTER_WORK)) {
                 this.data.get(indexAt).setWork(userInput);
@@ -93,8 +124,7 @@ public class ContactList {
             } catch (IndexOutOfBoundsException err) {
                 System.out.println(Config.ERROR_MESSAGE_OUT_OF_BOUNDS(
                         0, this.getData().size() - 1
-                )
-                        + "\n");
+                ) + "\n");
 
                 continue;
             } catch (NumberFormatException err) {
