@@ -13,13 +13,13 @@ public class Contact {
     public void printData() {
         String optionalInfo = "";
 
-        if (this.getWork() != null || this.getWork().replaceAll(" ", "") != "") {
+        if (!this.getWork().replaceAll(" ", "").equals("")) {
             optionalInfo += ", work=" + this.getWork();
         }
-        if (this.getHome() != null || this.getHome().replaceAll(" ", "") != "") {
+        if (!this.getHome().replaceAll(" ", "").equals("")) {
             optionalInfo += ", phone=" + this.getHome();
         }
-        if (this.getCity() != null || this.getCity().replaceAll(" ", "") != "") {
+        if (!this.getCity().replaceAll(" ", "").equals("")) {
             optionalInfo += ", city=" + this.getCity();
         }
 
