@@ -33,6 +33,8 @@ class Config {
             PROMPT_ENTER_CITY
     };
 
+    final static String[] PROMPT_UPDATE_CONTACT = Config.PROMPT_CREATE_CONTACT;
+
     //update and remove
     final static String PROMPT_ENTER_INDEX = "Enter the index of the contact to ";
 
