@@ -27,18 +27,19 @@ public class ContactList {
 
     public void updateContact() {
         this.printAllData();
+        if (this.getData().size() <= 0) return;
 
         final String[] prompt = Config.PROMPT_UPDATE_CONTACT;
 
         int i = 0;
 
 
-        String userInputIndex = InputCollector.getUserInput(Config.PROMPT_ENTER_INDEX + "update");
+        String userInputIndex = InputCollector.getUserInput(Config.PROMPT_ENTER_INDEX + "update").trim();
 
         while (true) {
             int indexAt = Integer.parseInt(userInputIndex);
 
-            String userInput = InputCollector.getUserInput(prompt[i]);
+            String userInput = InputCollector.getUserInput(prompt[i]).trim();
 
 
             // validation
@@ -72,17 +73,41 @@ public class ContactList {
     }
 
     public void removeContact() {
-        this.printAllData();
 
-        String userInput = InputCollector.getUserInput(Config.PROMPT_ENTER_INDEX + "remove");
+        String userInput = null;
+        int indexAt = -1;
 
-        int indexAt = Integer.parseInt(userInput);
-        // validation
+        while (true) {
+            this.printAllData();
 
+            if (this.getData().size() <= 0) break;
 
-        Contact removedContact = this.remove(indexAt);
+            try {
+                userInput = InputCollector.getUserInput(Config.PROMPT_ENTER_INDEX + "remove").trim();
+                indexAt = Integer.parseInt(userInput);
 
-        System.out.println("Successfully removed " + removedContact.getName());
+                if (indexAt < 0 || indexAt > this.getData().size() - 1) {
+                    throw new IndexOutOfBoundsException();
+                }
+
+            } catch (IndexOutOfBoundsException err) {
+                System.out.println(Config.ERROR_MESSAGE_OUT_OF_BOUNDS(
+                        0, this.getData().size() - 1
+                )
+                        + "\n");
+
+                continue;
+            } catch (NumberFormatException err) {
+                System.out.println(Config.ERROR_MESSAGE_FORMAT("You must enter number between "
+                        + 0 + " and " + (this.getData().size() - 1) + ".") + "\n");
+                continue;
+            }
+
+            Contact removedContact = this.remove(indexAt);
+
+            System.out.println("Successfully removed " + removedContact.getName());
+            break;
+        }
     }
 
     public void addNewContact() {
@@ -93,7 +118,7 @@ public class ContactList {
 
         int i = 0;
         while (true) {
-            userInput = InputCollector.getUserInput(prompt[i]);
+            userInput = InputCollector.getUserInput(prompt[i]).trim();
 
             if (prompt[i].equals(Config.PROMPT_ENTER_NAME)) {
                 // validate name
@@ -102,7 +127,7 @@ public class ContactList {
                     continue;
                 }
 
-                newContact.setName(userInput.trim());
+                newContact.setName(userInput);
             } else if (prompt[i].equals(Config.PROMPT_ENTER_MOBILE)) {
                 // validate mobile
                 if (this.isRequiredDataEmpty(userInput)) {
@@ -117,13 +142,13 @@ public class ContactList {
                     continue;
                 }
 
-                newContact.setPhone(userInput.trim());
+                newContact.setPhone(userInput);
             } else if (prompt[i].equals(Config.PROMPT_ENTER_WORK)) {
-                newContact.setWork(userInput.trim());
+                newContact.setWork(userInput);
             } else if (prompt[i].equals(Config.PROMPT_ENTER_HOME)) {
-                newContact.setHome(userInput.trim());
+                newContact.setHome(userInput);
             } else {
-                newContact.setCity(userInput.trim());
+                newContact.setCity(userInput);
                 break;
             }
 
