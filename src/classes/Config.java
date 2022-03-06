@@ -39,4 +39,12 @@ class Config {
     final static String PROMPT_ENTER_INDEX = "Enter the index of the contact to ";
 
     final static String NOT_FOUND = "NOT FOUND";
+
+    final static String ERROR_MESSAGE_OUT_OF_BOUNDS (int lowerBound, int upperBound) {
+        return "Invalid input. Enter number between " + lowerBound + " and " + upperBound + ".";
+    }
+
+    final static String ERROR_MESSAGE_FORMAT (String message) {
+        return "Invalid input. " + message;
+    }
 }

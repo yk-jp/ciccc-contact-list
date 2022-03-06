@@ -16,14 +16,27 @@ public class Controller {
     public void execute() {
         ContactList contactList = new ContactList();
 
-        while (true) {
+        String userInput = null;
+        int optionNumber = -1;
 
+        while (true) {
             this.printMainMenu();
 
-            String userInput = InputCollector.getUserInput(Config.PROMPT_INPUT_OPTION);
-            //validation for selecting option from menu
+            try {
+                userInput = InputCollector.getUserInput(Config.PROMPT_INPUT_OPTION);
+                optionNumber = Integer.parseInt(userInput) - 1;
 
-            int optionNumber = Integer.parseInt(userInput) - 1;
+                if (optionNumber < 0 || optionNumber > Config.OPTIONS.length - 1) {
+                    throw new IndexOutOfBoundsException();
+                }
+            } catch (IndexOutOfBoundsException err) {
+                System.out.println(Config.ERROR_MESSAGE_OUT_OF_BOUNDS(1, Config.OPTIONS.length) + "\n");
+                continue;
+            } catch (NumberFormatException err) {
+                System.out.println(Config.ERROR_MESSAGE_FORMAT("You must enter number between 1 and 5") + "\n");
+                continue;
+            }
+
             if (Config.OPTIONS[optionNumber].equals(Config.OPTION_LIST_ALL_CONTACTS)) {
                 contactList.printAllData();
 
@@ -40,7 +53,6 @@ public class Controller {
                 this.quit();
                 break;
             }
-
         }
     }
 
