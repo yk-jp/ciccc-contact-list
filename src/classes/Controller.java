@@ -30,8 +30,11 @@ public class Controller {
             } else if (Config.OPTIONS[optionNumber].equals(Config.OPTION_ADD_NEW_CONTACT)) {
                 contactList.addNewContact();
 
-            } else if(Config.OPTIONS[optionNumber].equals(Config.OPTION_REMOVE_CONTACT)){
+            } else if (Config.OPTIONS[optionNumber].equals(Config.OPTION_REMOVE_CONTACT)) {
                 contactList.removeContact();
+
+            } else if (Config.OPTIONS[optionNumber].equals(Config.OPTION_UPDATE_CONTACT)) {
+                contactList.updateContact();
 
             } else if (Config.OPTIONS[optionNumber].equals(Config.OPTION_QUIT)) {
                 this.quit();

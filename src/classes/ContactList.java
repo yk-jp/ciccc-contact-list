@@ -11,6 +11,8 @@ public class ContactList {
     }
 
     public void printAllData() {
+        System.out.println("");
+
         if (this.data.size() <= 0) {
             System.out.println(Config.NOT_FOUND + "\n");
         }
@@ -19,8 +21,53 @@ public class ContactList {
             System.out.print(i + ". ");
             this.data.get(i).printData();
         }
+
+        System.out.println("");
     }
 
+    public void updateContact() {
+        this.printAllData();
+
+        final String[] prompt = Config.PROMPT_UPDATE_CONTACT;
+
+        int i = 0;
+
+
+        String userInputIndex = InputCollector.getUserInput(Config.PROMPT_ENTER_INDEX + "update");
+
+        while (true) {
+            int indexAt = Integer.parseInt(userInputIndex);
+
+            String userInput = InputCollector.getUserInput(prompt[i]);
+
+
+            // validation
+
+            if (prompt[i].equals(Config.PROMPT_ENTER_NAME)) {
+                // validate name
+
+
+                this.data.get(indexAt).setName(userInput);
+            } else if (prompt[i].equals(Config.PROMPT_ENTER_MOBILE)) {
+                // validate mobile
+
+                this.data.get(indexAt).setPhone(userInput);
+            } else if (prompt[i].equals(Config.PROMPT_ENTER_WORK)) {
+                this.data.get(indexAt).setWork(userInput);
+            } else if (prompt[i].equals(Config.PROMPT_ENTER_HOME)) {
+                this.data.get(indexAt).setHome(userInput);
+            } else {
+                this.data.get(indexAt).setCity(userInput);
+                break;
+            }
+
+            i++;
+        }
+
+        System.out.println("updated contact");
+        System.out.println("");
+        System.out.println("Successfully updated");
+    }
 
     public void removeContact() {
         this.printAllData();
