@@ -40,11 +40,20 @@ class Config {
 
     final static String NOT_FOUND = "NOT FOUND";
 
+    final static String ERROR_MESSAGE_DUPLICATE_ENTRY(String message) {
+        return "This contact already exists. " + message;
+    };
+
+
     final static String ERROR_MESSAGE_OUT_OF_BOUNDS (int lowerBound, int upperBound) {
         return "Invalid input. Enter number between " + lowerBound + " and " + upperBound + ".";
     }
 
     final static String ERROR_MESSAGE_FORMAT (String message) {
         return "Invalid input. " + message;
+    }
+
+    final static String ERROR_MESSAGE_IS_REQUIRED() {
+        return "You must enter this field";
     }
 }

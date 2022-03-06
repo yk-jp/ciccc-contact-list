@@ -33,7 +33,8 @@ public class Controller {
                 System.out.println(Config.ERROR_MESSAGE_OUT_OF_BOUNDS(1, Config.OPTIONS.length) + "\n");
                 continue;
             } catch (NumberFormatException err) {
-                System.out.println(Config.ERROR_MESSAGE_FORMAT("You must enter number between 1 and 5") + "\n");
+                System.out.println(Config.ERROR_MESSAGE_FORMAT("You must enter number between "
+                        + 1 + " and " + Config.OPTIONS.length + ".") + "\n");
                 continue;
             }
 
