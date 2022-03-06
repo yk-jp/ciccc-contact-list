@@ -52,6 +52,8 @@ public class ContactList {
                 // validate mobile
 
                 this.data.get(indexAt).setPhone(userInput);
+
+
             } else if (prompt[i].equals(Config.PROMPT_ENTER_WORK)) {
                 this.data.get(indexAt).setWork(userInput);
             } else if (prompt[i].equals(Config.PROMPT_ENTER_HOME)) {
@@ -87,25 +89,41 @@ public class ContactList {
         Contact newContact = new Contact();
         final String[] prompt = Config.PROMPT_CREATE_CONTACT;
 
+        String userInput = null;
+
         int i = 0;
         while (true) {
-            String userInput = InputCollector.getUserInput(prompt[i]);
+            userInput = InputCollector.getUserInput(prompt[i]);
 
             if (prompt[i].equals(Config.PROMPT_ENTER_NAME)) {
                 // validate name
+                if (this.isRequiredDataEmpty(userInput)) {
+                    System.out.println(Config.ERROR_MESSAGE_IS_REQUIRED() + "\n");
+                    continue;
+                }
 
-
-                newContact.setName(userInput);
+                newContact.setName(userInput.trim());
             } else if (prompt[i].equals(Config.PROMPT_ENTER_MOBILE)) {
                 // validate mobile
+                if (this.isRequiredDataEmpty(userInput)) {
+                    System.out.println(Config.ERROR_MESSAGE_IS_REQUIRED() + "\n");
+                    continue;
+                }
 
-                newContact.setPhone(userInput);
+                if (this.isDuplicatedEntry(newContact, userInput)) {
+                    // validate duplicated entry
+                    System.out.println(Config.ERROR_MESSAGE_DUPLICATE_ENTRY("You must enter different info. "
+                            + "Try again.") + "\n");
+                    continue;
+                }
+
+                newContact.setPhone(userInput.trim());
             } else if (prompt[i].equals(Config.PROMPT_ENTER_WORK)) {
-                newContact.setWork(userInput);
+                newContact.setWork(userInput.trim());
             } else if (prompt[i].equals(Config.PROMPT_ENTER_HOME)) {
-                newContact.setHome(userInput);
+                newContact.setHome(userInput.trim());
             } else {
-                newContact.setCity(userInput);
+                newContact.setCity(userInput.trim());
                 break;
             }
 
@@ -118,6 +136,24 @@ public class ContactList {
         newContact.printData();
         System.out.println("");
         System.out.println("Successfully added a new contact!");
+    }
+
+    private boolean isRequiredDataEmpty(String data) {
+        return data.trim().equals("");
+    }
+
+    private boolean isDuplicatedEntry(Contact newContact, String mobileInfo) {
+        for (Contact existingContact : this.getData()) {
+            String nameOfExistingContact = existingContact.getName();
+            String mobileOfExistingContact = existingContact.getPhone();
+            String nameOfNewContact = newContact.getName();
+
+            if (nameOfExistingContact.equals(nameOfNewContact) && mobileOfExistingContact.equals(mobileInfo.trim())
+            ) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private Contact remove(int indexAt) {
