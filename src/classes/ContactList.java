@@ -39,7 +39,7 @@ public class ContactList {
         while (true) {
             try {
                 userInput = InputCollector.getUserInput(Config.PROMPT_ENTER_INDEX + "update").trim();
-                indexAt = Integer.parseInt(userInput) - 1;
+                indexAt = Integer.parseInt(userInput);
 
                 if (indexAt < 0 || indexAt > this.getData().size() - 1) {
                     throw new IndexOutOfBoundsException();
@@ -99,7 +99,7 @@ public class ContactList {
         }
 
         System.out.println("updated contact");
-        System.out.println("");
+        this.data.get(indexAt).printData();
         System.out.println("Successfully updated");
     }
 
